@@ -1,7 +1,8 @@
 %% Fresh Start
 % Author:  Evan Krimpenfort
 % Class:   ECE 563-01
-% Purpose: Simple Image Processing with our Camera
+% Purpose: Simple Image Processing with our Camera. An image will be
+% loaded, grayscaled, cropped, and written back to the computer.
 clc; clear all; close all;
 
 %% Specification
@@ -9,8 +10,8 @@ clc; clear all; close all;
 % image. Write a well commented MATLAB script to perfomr the following
 % tasks.
 %
-% 1. Load the image with imread()
-% 2. Display the image with im()
+% 1. Load the image with imread().
+% 2. Display the image with im() 
 % 3. Extract the green color channel, producing a grayscale image array.
 % Give the Grayscale image a new variable name.
 % 4. Display the Grayscale image with im().
@@ -24,21 +25,39 @@ clc; clear all; close all;
 % your favorite image viewer and then delete it.
 %
 % Upload the script file as a .pdf using MATLAB's publish tab.
-%% Code
+
+%% Code of hmwk1.m
 % Read the image using imread().
-image = imread('myself.tif');
+image = imread('myself.JPEG');
 
 % Display the image in a figure using im().
-figure(1);
 im(image);
+figure(1);
 
 % To extract the green color, you need to get the 2nd layer of the 3
 % dimensional array by doing all, all, and 2. it is 2 because of rGb. G is
 % the second element.
-green_image = image[:,:,2];
+green_image = image(:,:,2);
 
-% Display your new image. It will be grayscale because the array is now a 2
+% Display your new image in another figure using im(). It will be grayscale because the array is now a 2
 % dimensional array.
 im(green_image);
+figure(2);
 
-% <Change as needed.>
+% Display a histogram by linerazing the image and then use the funciton
+% hist() in another figure (three at this point).
+figure(3);
+histogram(green_image(:));
+
+% Crop the image to where only the face is shown and store it in a new
+% variable.
+cropped_green_image = green_image(500:2000, 600:1730);
+
+% Display the cropped image using im() in a fourth figure.
+im(cropped_green_image);
+figure(4);
+
+% Finally, take the cropped image and write it to a .png file
+imwrite(cropped_green_image, 'cropped_myself.png', 'png');
+
+% end of hmwk1.m
