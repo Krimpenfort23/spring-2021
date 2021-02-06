@@ -641,9 +641,6 @@ void eliminateDuplicates()
 	int total = 0;
 	int *unique = malloc(sizeof(*unique) * size);
 	int number;
-	time_t t;
-	
-	srand((unsigned) time(&t));
 	
 	for (int i = 0; i < 20; i++)
 	{
