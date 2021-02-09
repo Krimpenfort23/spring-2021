@@ -1,0 +1,237 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>optical_parameters</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-08"><meta name="DC.source" content="optical_parameters.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> opt = optical_parameters( opt )
+<span class="comment">%</span>
+<span class="comment">% opt = optical_parameters( opt )</span>
+<span class="comment">%</span>
+<span class="comment">% Computed basic optical parameters for an imaging system.</span>
+<span class="comment">%</span>
+<span class="comment">% REQUIRED INPUT FIELDS</span>
+<span class="comment">% opt.wavelength        Wavelength of light used (meters)</span>
+<span class="comment">% opt.focal_length      Focal length (meters) % (often seen as l)</span>
+<span class="comment">% opt.f_number          F-number of optics (often seen as f/#)</span>
+<span class="comment">% opt.fpa_pitch         Actual FPA detector pitch (meters)</span>
+<span class="comment">% opt.fpa_size          Width of FPA in (meters) % (often seen as X)</span>
+<span class="comment">% opt.distance          Distance to object plane in (meters) % (often seen as do)</span>
+<span class="comment">%</span>
+<span class="comment">% OUTPUT FIELDS ADDED</span>
+<span class="comment">% opt.aperture          Aperture diameter (meters)</span>
+<span class="comment">% opt.cutoff_focal      Maximum # of spatial cycles that can be</span>
+<span class="comment">%                       theoretically &#8220;resolved&#8221; per m in the focal plane</span>
+<span class="comment">%                       (cycles/meter)</span>
+<span class="comment">% opt.cutoff_object     Spatial cutoff frequency as seen in the object</span>
+<span class="comment">%                       plane (cycles/meter)</span>
+<span class="comment">% opt.cutoff_angular    Maximum # of spatial cycles that can be</span>
+<span class="comment">%                       theoretically &#8220;resolved&#8221; per radian (toward object</span>
+<span class="comment">%                       or FPA) (cycles/radian)</span>
+<span class="comment">% opt.image_distance    Distance from lens to focused image (meters)</span>
+<span class="comment">% opt.magnification     Linear magnification of optical system (unitless)</span>
+<span class="comment">% opt.angular_fov       Field of view (radians)</span>
+<span class="comment">% opt.spatial_fov       Field of view (meters)</span>
+<span class="comment">% opt.sampling_frequency Spatial sampling frequency (1/pitch) (cyc/m)</span>
+<span class="comment">% opt.Nyquist_pitch     Detector pitch required for Nyquist sampling</span>
+<span class="comment">% opt.undersampling     Undersampling factor</span>
+<span class="comment">% opt.pix2object        Scales fpa_pitch to object plane</span>
+<span class="comment">%</span>
+<span class="comment">% Author: Evan Krimpenfort</span>
+<span class="comment">% University of Dayton</span>
+<span class="comment">% ECE 563 Image Processing with Dr. Russell Hardie</span>
+<span class="comment">% Date:  February 9th, 2021</span>
+
+<span class="comment">% Aperture diameter (meters)</span>
+opt.aperture = opt.focal_length/opt.f_number;
+
+<span class="comment">% Maximum # of spatial cycles that can be</span>
+<span class="comment">% theoretically &#8220;resolved&#8221; per m in the focal plane</span>
+<span class="comment">% (cycles/meter)</span>
+opt.cutoff_focal = 1/(opt.wavelength * opt.f_number);
+
+<span class="comment">% Spatial cutoff frequency as seen in the object</span>
+<span class="comment">% plane (cycles/meter)</span>
+opt.cutoff_angular = opt.aperture / opt.wavelength;
+
+<span class="comment">% Maximum # of spatial cycles that can be</span>
+<span class="comment">% theoretically &#8220;resolved&#8221; per radian (toward object</span>
+<span class="comment">% or FPA) (cycles/radian)</span>
+opt.cutoff_object = opt.cutoff_angular/opt.distance;
+
+<span class="comment">% Distance from lens to focused image (meters)</span>
+opt.image_distance = inv((1/opt.focal_length) - (1/opt.distance));
+
+<span class="comment">% Linear magnification of optical system (unitless)</span>
+opt.magnification = opt.focal_length/(opt.focal_length - opt.distance);
+
+<span class="comment">% Field of view (radians)</span>
+opt.angular_fov = 2 * atan(opt.fpa_size/(2 * opt.focal_length));
+
+<span class="comment">% Field of view (meters)</span>
+opt.spatial_fov = opt.fpa_size/abs(opt.magnification);
+
+<span class="comment">% Spatial sampling frequency (1/pitch) (cyc/m)</span>
+opt.sampling_frequency = 1/opt.fpa_pitch;
+
+<span class="comment">% Detector pitch required for Nyquist sampling</span>
+opt.Nyquist_pitch = 1/(2 * opt.cutoff_focal);
+
+<span class="comment">% Undersampling factor</span>
+opt.undersampling = opt.fpa_pitch / opt.Nyquist_pitch;
+
+<span class="comment">% Scales fpa_pitch to object plane</span>
+opt.pix2object = opt.fpa_pitch / opt.cutoff_object;
+
+<span class="comment">% End of function</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in optical_parameters (line 40)
+opt.aperture = opt.focal_length/opt.f_number;
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function opt = optical_parameters( opt )
+%
+% opt = optical_parameters( opt )
+% 
+% Computed basic optical parameters for an imaging system.  
+%
+% REQUIRED INPUT FIELDS
+% opt.wavelength        Wavelength of light used (meters)
+% opt.focal_length      Focal length (meters) % (often seen as l)
+% opt.f_number          F-number of optics (often seen as f/#)
+% opt.fpa_pitch         Actual FPA detector pitch (meters)
+% opt.fpa_size          Width of FPA in (meters) % (often seen as X)
+% opt.distance          Distance to object plane in (meters) % (often seen as do)
+%
+% OUTPUT FIELDS ADDED
+% opt.aperture          Aperture diameter (meters)
+% opt.cutoff_focal      Maximum # of spatial cycles that can be
+%                       theoretically “resolved” per m in the focal plane
+%                       (cycles/meter)
+% opt.cutoff_object     Spatial cutoff frequency as seen in the object
+%                       plane (cycles/meter)
+% opt.cutoff_angular    Maximum # of spatial cycles that can be
+%                       theoretically “resolved” per radian (toward object
+%                       or FPA) (cycles/radian)
+% opt.image_distance    Distance from lens to focused image (meters)
+% opt.magnification     Linear magnification of optical system (unitless)
+% opt.angular_fov       Field of view (radians) 
+% opt.spatial_fov       Field of view (meters) 
+% opt.sampling_frequency Spatial sampling frequency (1/pitch) (cyc/m)
+% opt.Nyquist_pitch     Detector pitch required for Nyquist sampling
+% opt.undersampling     Undersampling factor
+% opt.pix2object        Scales fpa_pitch to object plane
+%
+% Author: Evan Krimpenfort
+% University of Dayton
+% ECE 563 Image Processing with Dr. Russell Hardie 
+% Date:  February 9th, 2021
+
+% Aperture diameter (meters)
+opt.aperture = opt.focal_length/opt.f_number;
+
+% Maximum # of spatial cycles that can be
+% theoretically “resolved” per m in the focal plane
+% (cycles/meter)
+opt.cutoff_focal = 1/(opt.wavelength * opt.f_number);
+
+% Spatial cutoff frequency as seen in the object
+% plane (cycles/meter)
+opt.cutoff_angular = opt.aperture / opt.wavelength;
+
+% Maximum # of spatial cycles that can be
+% theoretically “resolved” per radian (toward object
+% or FPA) (cycles/radian)
+opt.cutoff_object = opt.cutoff_angular/opt.distance;
+
+% Distance from lens to focused image (meters)
+opt.image_distance = inv((1/opt.focal_length) - (1/opt.distance));
+
+% Linear magnification of optical system (unitless)
+opt.magnification = opt.focal_length/(opt.focal_length - opt.distance);
+
+% Field of view (radians) 
+opt.angular_fov = 2 * atan(opt.fpa_size/(2 * opt.focal_length));
+
+% Field of view (meters)
+opt.spatial_fov = opt.fpa_size/abs(opt.magnification);
+
+% Spatial sampling frequency (1/pitch) (cyc/m)
+opt.sampling_frequency = 1/opt.fpa_pitch;
+
+% Detector pitch required for Nyquist sampling
+opt.Nyquist_pitch = 1/(2 * opt.cutoff_focal);
+
+% Undersampling factor
+opt.undersampling = opt.fpa_pitch / opt.Nyquist_pitch;
+
+% Scales fpa_pitch to object plane
+opt.pix2object = opt.fpa_pitch / opt.cutoff_object;
+
+% End of function
+##### SOURCE END #####
+--></body></html>

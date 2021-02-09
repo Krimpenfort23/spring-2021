@@ -1,0 +1,197 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>test_optical_parameters</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-02-08"><meta name="DC.source" content="test_optical_parameters.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Fresh Start</a></li><li><a href="#2">Specification</a></li><li><a href="#3">Code</a></li></ul></div><h2 id="1">Fresh Start</h2><p>Author:  Evan Krimpenfort</p><p>Class:   ECE 563-01</p><p>Purpose: Looking at the equations dealing with the analysis of certain input parameters in the optical world.</p><pre class="codeinput">clc; clear <span class="string">all</span>; close <span class="string">all</span>;
+</pre><h2 id="2">Specification</h2><p>Test your function with the input parameters listed in Table 1 below and report your output. You should write a script file to set the input parametersin Table 1, call the new function, and display the output structure to the command window. Name this &#8220;test_optical_parameters.m&#8221; to complement your functionthat should be in its own file called &#8220;optical_parameters.m&#8221; Publish the script to a .pdf file and upload the .pdf and your &#8220;optical_parameters.m&#8221; function file to Isidore. The published script should show your inputs and your outputs.</p><h2 id="3">Code</h2><pre class="codeinput">opt.wavelength = 0.50e-6 <span class="comment">% meters</span>
+opt.focal_length = 8e-3  <span class="comment">% meters</span>
+opt.f_number = 8         <span class="comment">% F/# (# = 8)</span>
+opt.fpa_pitch = 5.4e-6   <span class="comment">% meters</span>
+opt.fpa_size = 6.4e-3    <span class="comment">% meters</span>
+opt.distance = 5         <span class="comment">% meters</span>
+
+post_opt = optical_parameters(opt)
+
+<span class="comment">% end of test_optical_parameters.m</span>
+</pre><pre class="codeoutput">
+opt = 
+
+  struct with fields:
+
+    wavelength: 5.0000e-07
+
+
+opt = 
+
+  struct with fields:
+
+      wavelength: 5.0000e-07
+    focal_length: 0.0080
+
+
+opt = 
+
+  struct with fields:
+
+      wavelength: 5.0000e-07
+    focal_length: 0.0080
+        f_number: 8
+
+
+opt = 
+
+  struct with fields:
+
+      wavelength: 5.0000e-07
+    focal_length: 0.0080
+        f_number: 8
+       fpa_pitch: 5.4000e-06
+
+
+opt = 
+
+  struct with fields:
+
+      wavelength: 5.0000e-07
+    focal_length: 0.0080
+        f_number: 8
+       fpa_pitch: 5.4000e-06
+        fpa_size: 0.0064
+
+
+opt = 
+
+  struct with fields:
+
+      wavelength: 5.0000e-07
+    focal_length: 0.0080
+        f_number: 8
+       fpa_pitch: 5.4000e-06
+        fpa_size: 0.0064
+        distance: 5
+
+
+post_opt = 
+
+  struct with fields:
+
+            wavelength: 5.0000e-07
+          focal_length: 0.0080
+              f_number: 8
+             fpa_pitch: 5.4000e-06
+              fpa_size: 0.0064
+              distance: 5
+              aperture: 1.0000e-03
+          cutoff_focal: 250000
+        cutoff_angular: 2.0000e+03
+         cutoff_object: 400.0000
+        image_distance: 0.0080
+         magnification: -0.0016
+           angular_fov: 0.7610
+           spatial_fov: 3.9936
+    sampling_frequency: 1.8519e+05
+         Nyquist_pitch: 2.0000e-06
+         undersampling: 2.7000
+            pix2object: 1.3500e-08
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Fresh Start
+%
+% Author:  Evan Krimpenfort
+%
+% Class:   ECE 563-01
+%
+% Purpose: Looking at the equations dealing with the analysis of certain
+% input parameters in the optical world.
+clc; clear all; close all;
+
+%% Specification
+% Test your function with the input parameters listed in Table 1 below 
+% and report your output. You should write a script file to set the 
+% input parametersin Table 1, call the new function, and display the 
+% output structure to the command window. Name this “test_optical_parameters.m”
+% to complement your functionthat should be in its own file called 
+% “optical_parameters.m” Publish the script to a .pdf file and upload 
+% the .pdf and your “optical_parameters.m” function file to Isidore.
+% The published script should show your inputs and your outputs.
+
+%% Code
+
+opt.wavelength = 0.50e-6 % meters
+opt.focal_length = 8e-3  % meters
+opt.f_number = 8         % F/# (# = 8)
+opt.fpa_pitch = 5.4e-6   % meters
+opt.fpa_size = 6.4e-3    % meters
+opt.distance = 5         % meters
+
+post_opt = optical_parameters(opt)
+
+% end of test_optical_parameters.m
+##### SOURCE END #####
+--></body></html>
