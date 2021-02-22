@@ -9,10 +9,10 @@
 clc; clear all; close all;
 
 %% Specification
-% Test your function with the input parameters listed in Table 1 below 
-% and report your output. You should write a script file to set the 
-% input parametersin Table 1, call the new function, and display the 
-% output structure to the command window. Name this “test_optical_parameters.m”
+% Test your function with the input parameters listed below and report 
+% your output. You should write a script file to set the input parameters 
+% below, call the new function, and display the output structure 
+% to the command window. Name this “test_optical_parameters.m”
 % to complement your functionthat should be in its own file called 
 % “optical_parameters.m” Publish the script to a .pdf file and upload 
 % the .pdf and your “optical_parameters.m” function file to Isidore.
