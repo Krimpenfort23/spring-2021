@@ -34,27 +34,28 @@
  * 3. Assume the file junk.
  *    In one sentence each, explain the output of each of the following command lines (there are 10):
  *
- *    $ ls junk
+ *    $ ls junk     // listing anything that is junk
  *      junk
- *    $ echo junk
- *	junk
- *    $ ls /
- *	bin  boot  dev  etc  home  lib  lib64  lost+found  mnt  opt // 
- *	proc  root  run  sbin  selinux  srv  sys  tmp  tmphome  usr  var
- *    $ echo /
- *	/
- *    $ ls
- *	a1  a2  a.out  assignment_1.c  assignment_2.c  assignment_3.c  junk.txt	
- *    $ echo
- *	<nothing>
- *    $ ls *
- *	a1  a2  a.out  assignment_1.c  assignment_2.c  assignment_3.c  junk.txt	
- *    $ echo *
- *	*
- *    $ ls ' * '
- *	ls: cannot access ' * ': No such file or directory
- *    $ echo ' * '
+ *    $ echo junk   // is echoing the word junk
+ *	    junk
+ *    $ ls /        // listing anything in the base directory
+ *	    bin  boot  dev  etc  home  lib  lib64  lost+found  mnt  opt // 
+ *	    proc  root  run  sbin  selinux  srv  sys  tmp  tmphome  usr  var
+ *    $ echo /      // is echoing the character '\'
+ *	    /
+ *    $ ls          // listing the current directory
+ *	    a1  a2  a.out  assignment_1.c  assignment_2.c  assignment_3.c  junk.txt	
+ *    $ echo        // echoing nothing
+ *	    <nothing>
+ *    $ ls *        // listing the current directory
+ *	    a1  a2  a.out  assignment_1.c  assignment_2.c  assignment_3.c  junk.txt	
+ *    $ echo *      // is echoing the character '*'
+ *	    *
+ *    $ ls ' * '    // trying to list a string of characters but that doesn't work
+ *	    ls: cannot access ' * ': No such file or directory
+ *    $ echo ' * '  // echoing the string of characters ' * '
  *      ' * '
+ * 
  * 4. Show and explain the output of the following Korn shell commands:
  *    
  *    echo 'Go $HOME'
@@ -92,5 +93,5 @@
  *
  * 6. Suppose a command mystery writes its output to stderr. Give a single command line which would 
  *    pipe this output to wc -l.
- *    $ (mystery | wc -l)
+ *    $ (mystery | wc -l) >&2
  */
