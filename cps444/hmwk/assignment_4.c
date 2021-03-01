@@ -60,11 +60,11 @@ int analyze_inputs_per_word(const char* user_inputs)
 	int words = 0;
 	char* copy = malloc(strlen(user_inputs) + 1);
 	strcpy(copy, user_inputs);
-	char* token = strtok(copy, " =.!?,;\n");
+	char* token = strtok(copy, " \t\n");
 	while (token != NULL)
 	{
 		words++;
-		token = strtok(NULL, " =.!?,;\n");
+		token = strtok(NULL, " \t\n");
 	}
 
 	free(copy);
