@@ -1,0 +1,4 @@
+0.08s    13043  http://www.google.com
+0.25s   199264  http://www.npr.com
+0.26s    35184  http://www.mit.edu
+0.26s elapsed
