@@ -26,7 +26,7 @@ H(rho > rho_c) = 0; % nothing below 0
 % print to see the filter's effects
 figure(1);
 mesh(u, v, H);
-title(sprintf('Atmo                 spheric OTF (r_0=%2.2f m)', r0));
+title(sprintf('Atmospheric OTF (r_0=%2.2f m)', r0));
 xlabel('u (cyc/m)');
 ylabel('v (cyc/m)');
 zlabel('$|H_c(u, v)|$', 'interpreter', 'latex');
